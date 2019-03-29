@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import "./App.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSpinner)
+library.add(faSpinner, faSortUp, faSortDown)
 
 const DEFAULT_QUERY = "redux";
 const DEFAULT_HPP = "100";
@@ -202,6 +202,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
             sortKey={'TITLE'}
             onSort={onSort}
             activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
           >
             Title
           </Sort>
@@ -211,6 +212,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
             sortKey={'AUTHOR'}
             onSort={onSort}
             activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
           >
             Author
           </Sort>
@@ -220,6 +222,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
             sortKey={'COMMENTS'}
             onSort={onSort}
             activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
           >
             Comments
           </Sort>
@@ -229,6 +232,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
             sortKey={'POINTS'}
             onSort={onSort}
             activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
           >
             Points
           </Sort>
@@ -288,7 +292,7 @@ Button.defaultProps = {
   className: '',
 };
 
-const Sort = ({ sortKey, activeSortKey, onSort, children }) => {
+const Sort = ({ sortKey, activeSortKey, onSort, children, isSortReverse }) => {
   const sortClass = classNames(
     "button-inline",
     { "button-active": sortKey === activeSortKey }
@@ -300,6 +304,8 @@ const Sort = ({ sortKey, activeSortKey, onSort, children }) => {
       className={sortClass}
     >
       {children}
+      { sortKey === activeSortKey && isSortReverse && <FontAwesomeIcon icon="sort-up" /> }
+      { sortKey === activeSortKey && !isSortReverse && <FontAwesomeIcon icon="sort-down" /> }
     </Button>
   );
 }
