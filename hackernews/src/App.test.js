@@ -67,22 +67,22 @@ describe("Table", () => {
     list: [
       { title: "1", author: "1", num_comments: 1, points: 2, objectID: "y" },
       { title: "2", author: "2", num_comments: 1, points: 2, objectID: "z" }
-    ]
+    ]   
   };
 
   it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<Table {...props} />, div);
+    ReactDOM.render(<Table {...props} onDismiss={() => True} />, div);
   });
 
   test("has a valid snapshot", () => {
-    const component = renderer.create(<Table {...props} />);
+    const component = renderer.create(<Table {...props} onDismiss={() => True} />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it("shows two items in list", () => {
-    const element = shallow(<Table {...props} />);
+    const element = shallow(<Table {...props} onDismiss={() => True} />);
 
     expect(element.find(".table-row").length).toBe(2);
   });
