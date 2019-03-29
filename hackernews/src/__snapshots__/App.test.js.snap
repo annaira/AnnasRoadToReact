@@ -7,6 +7,9 @@ exports[`App has a valid snapshot 1`] = `
   <div
     className="interactions"
   >
+    <div>
+      Loading ...
+    </div>
     <form
       onSubmit={[Function]}
     >
