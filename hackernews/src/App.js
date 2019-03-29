@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import "./App.css";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faSpinner)
 
 const DEFAULT_QUERY = "redux";
 const DEFAULT_HPP = "100";
@@ -225,7 +230,7 @@ Button.defaultProps = {
 };
 
 const Loading = () =>
-  <div>Loading ...</div>
+  <div><FontAwesomeIcon icon="spinner" /></div>
 
 export default App;
 
