@@ -114,10 +114,6 @@ class App extends Component {
     return (
       <div className="page">
         <div className="interactions">
-          { isLoading
-            ? <Loading/>
-            : <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>More</Button>
-          }
           <Search
             value={searchTerm}
             onChange={this.onSearchChange}
@@ -134,11 +130,9 @@ class App extends Component {
           <Table list={list} onDismiss={this.onDismiss} />
         )}
         <div className="interactions">
-          <Button
-            onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
-          >
+          <ButtonWithLoading isLoading={isLoading}  onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
             More
-          </Button>
+          </ButtonWithLoading>
         </div>
       </div>
     );
@@ -231,6 +225,14 @@ Button.defaultProps = {
 
 const Loading = () =>
   <div><FontAwesomeIcon icon="spinner" /></div>
+
+const withLoading = (Component) => ({ isLoading, ...rest }) =>
+  isLoading
+    ? <Loading />
+    : <Component {...rest} />
+
+const ButtonWithLoading = withLoading(Button);
+
 
 export default App;
 
