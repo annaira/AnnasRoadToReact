@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import App, { Search, Button, Table } from "./App";
+import App, { Search, Button, Table, updateSearchTopStoriesState } from "./App";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -88,4 +88,32 @@ describe("Table", () => {
 
     expect(element.find(".table-row").length).toBe(2);
   });
+});
+
+describe('updateSearchTopStoriesState', () => {
+
+  const prevState = {
+    results: {
+      foo: { hits: [1], page: 1 } // Or something similar, as appropriate
+    },
+    isLoading: true,
+    searchKey: 'foo',
+  };
+
+  // We need an object that we would expect updateSearchTopStoriesState to return
+  // This is what you could also pass in to setState
+  const expectedStateChange = {
+    results: {
+      foo: { hits: [1, 2, 4], page: 3 }
+    },
+    isLoading: false,
+  };
+
+  const updater = updateSearchTopStoriesState([2,4], 3);
+  const calculatedStateChange = updater(prevState);
+
+  it('creates a state change correctly', () => {
+    expect(calculatedStateChange).toEqual(expectedStateChange);
+  });
+
 });
